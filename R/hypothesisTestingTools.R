@@ -50,8 +50,8 @@ boxMuller = function(n=500){
 #' twoSidedT(t=5, df=2)
 #' 
 twoSidedT = function(t,df){
-two_value = 2 * pt(q = t, df, lower.tail = FALSE)
-return(two_value)
+  two_value = 2 * pt(q = t, df, lower.tail = FALSE)
+  return(two_value)
 }
 
 #' Two Sided Z function
@@ -63,10 +63,11 @@ return(two_value)
 #' 
 #' @export
 #' @examples 
-#' twoSidedT(2)
+#' twoSidedZ(2)
 #' 
-two_sided_z = function(z){
+twoSidedZ = function(z){
   two_vale = 2 * pnorm(q = z, lower.tail=FALSE)
+  return(two_value)
 }
 
 #' Simulate data 
