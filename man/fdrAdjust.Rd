@@ -16,3 +16,14 @@ fdrAdjust(p_values, alpha = 0.5, method = "fdr")
 \description{
 Performs an adjusted FDR correction
 }
+\examples{
+Lets say we have performed a series of statistical tests 
+and obtained the following p-values:
+p.vals = seq(0.0025,0.025,0.0025)
+
+We could give them names, to identify the results of each test.
+names(p.vals) = paste("Test",LETTERS[1:10])
+
+fdrAdjust(p_values = p.vals, alpha = 0.5, method = "fdr")
+
+}

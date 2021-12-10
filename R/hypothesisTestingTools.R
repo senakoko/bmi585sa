@@ -10,6 +10,7 @@
 #' 
 #' @return a normal distribution
 #' 
+#' @export
 #' @examples 
 #' n = 500
 #' BM_data = boxMuller(n)
@@ -44,6 +45,7 @@ boxMuller = function(n=500){
 #' 
 #' @param df degrees of freedom (> 0, maybe non-integer). df = Inf is allowed.
 #' 
+#' @export
 #' @examples 
 #' twoSidedT(t=5, df=2)
 #' 
@@ -59,6 +61,7 @@ return(two_value)
 #' 
 #' @param z  vector of quantiles.
 #' 
+#' @export
 #' @examples 
 #' twoSidedT(2)
 #' 
@@ -76,6 +79,7 @@ two_sided_z = function(z){
 #' @return 
 #' a simulated with treatment and control groups
 #' 
+#' @export
 #' @examples 
 #' simulated_cancer = simulateTrial(50)
 #' 
@@ -101,6 +105,7 @@ simulateTrial = function(N=50){
 #' @return 
 #' produces the effect size
 #' 
+#' @export
 #' @examples 
 #' simulated_cancer = simulateTrial(50)
 #' effectSize(simulated_cancer, simulated_cancer[,1]) 
@@ -135,6 +140,7 @@ effectSize = function(t,g){
 #' @return 
 #' It returns the test statistics, the p-value and the degree of freedom
 #' 
+#' @export
 #' @examples 
 #' x = rnorm(10,0,1)
 #' y = rnorm(10,1,1)
@@ -170,6 +176,7 @@ welchT = function(x,y){
 #' @return 
 #' the minimum sample size
 #' 
+#' @export
 #' @examples 
 #' minimumN(0.6)
 #' 
@@ -185,6 +192,7 @@ minimumN = function(d=0.8){
 #' 
 #' @param tib data supplied as a contingency table
 #' 
+#' @export
 #' @return 
 #' outputs the chi square value
 #' 
@@ -216,6 +224,7 @@ chiSquareCounts = function(tib){
 #' 
 #' @param n1,n2 the number of samples per group
 #' 
+#' @export
 #' @return 
 #' outputs the post hoc power
 #' 
@@ -241,9 +250,10 @@ postHocPower <- function(effect_size=1, n1=30, n2=30) {
 #' @param alpha alpha value to use for adjustment
 #' 
 #' @param method method for adjustment. Default is holm
-#'
+#' 
+#' @export
 #' @examples 
-#' Let's say we have performed a series of statistical tests 
+#' Lets say we have performed a series of statistical tests 
 #' and obtained the following p-values:
 #' p.vals = seq(0.0025,0.025,0.0025)
 #' 
@@ -268,9 +278,10 @@ bhAdjust = function(p_values, alpha=0.5, method= "holm"){
 #' @param alpha alpha value to use for adjustment
 #' 
 #' @param method method for adjustment. Default is FDR
-#'
+#' 
+#' @export
 #' @examples 
-#' Let's say we have performed a series of statistical tests 
+#' Lets say we have performed a series of statistical tests 
 #' and obtained the following p-values:
 #' p.vals = seq(0.0025,0.025,0.0025)
 #' 
@@ -298,6 +309,7 @@ fdrAdjust = function(p_values, alpha=0.5, method= "fdr"){
 #' @return 
 #' outputs the r-square value
 #' 
+#' @export
 #' @examples 
 #' y_true = c(4, -1.5, 5, 9)
 #' y_pred = c(3.5, 1.0, 5, 10)
@@ -321,6 +333,7 @@ r2 = function(y_pred, y_true){
 #' @return 
 #' outputs the r-square value
 #' 
+#' @export
 #' @examples 
 #' y_true = c(4, -1.5, 5, 9)
 #' y_pred = c(3.5, 1.0, 5, 10)

@@ -8,6 +8,7 @@
 #' @return 
 #' An unscaled vector or matrix
 #' 
+#' @export
 #' @examples  
 #' x = c(2,4,3,5)
 #' X = matrix(x, nrow = 2)
@@ -33,6 +34,7 @@ unscale = function(X){
 #' @return 
 #' An approximated tibble of the original data
 #' 
+#' @export
 #' @examples 
 #' npc = 6
 #' pcApprox(mtcars[,1:npc],npc)
@@ -57,6 +59,7 @@ pcApprox = function(X, npc){
 #' 
 #' @param X   tibble or matrix
 #' 
+#' @export
 #' @returns 
 #' A lollipop plot of the principal component loadings
 #'

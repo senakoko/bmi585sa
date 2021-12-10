@@ -10,13 +10,14 @@
 #' @return 
 #' Outputs the confusion matrix
 #' 
+#' @export
 #' @examples 
 #' Simulated y_true and y_predicted values
 #' y_true = c(1,1,1,0,0,1,0,1,1,0)
 #' y_pred = c(1,1,1,1,0,0,1,0,1,1)
-#' confusion_matrix_func(y_pred,y_true)
+#' confusionMatrix(y_pred,y_true)
 #' 
-confusion_matrix_func = function(y_pred, y_true){
+confusionMatrix = function(y_pred, y_true){
   
   # Convert y_true and y_pred to integer 
   y_true = as.integer(y_true)
@@ -56,6 +57,7 @@ confusion_matrix_func = function(y_pred, y_true){
 #' @return 
 #' Outputs the sensitivity
 #' 
+#' @export
 #' @examples 
 #' Simulated y_true and y_predicted values
 #' y_true = c(1,1,1,0,0,1,0,1,1,0)
@@ -64,7 +66,7 @@ confusion_matrix_func = function(y_pred, y_true){
 #' 
 sensitivity = function(y_pred,y_true){
   
-  cmatrix = classificationMetricsTools::confusion_matrix_func(y_pred, y_true)
+  cmatrix = confusionMatrix(y_pred, y_true)
   sens_rate = cmatrix[2,2]/(cmatrix[2,2] + cmatrix[2,1] )
   return(sens_rate)
 }
@@ -82,6 +84,7 @@ sensitivity = function(y_pred,y_true){
 #' @return 
 #' Outputs the specificity
 #' 
+#' @export
 #' @examples 
 #' Simulated y_true and y_predicted values
 #' y_true = c(1,1,1,0,0,1,0,1,1,0)
@@ -90,7 +93,7 @@ sensitivity = function(y_pred,y_true){
 #' 
 specificity = function(y_pred, y_true){
   
-  cmatrix = classificationMetricsTools::confusion_matrix_func(y_pred, y_true)
+  cmatrix = confusionMatrix(y_pred, y_true)
   spec_rate = cmatrix[1,1]/(cmatrix[1,1] + cmatrix[1,2])
   return(spec_rate)
 }
@@ -108,6 +111,7 @@ specificity = function(y_pred, y_true){
 #' @return 
 #' Outputs the Acccuracy
 #' 
+#' @export
 #' @examples 
 #' Simulated y_true and y_predicted values
 #' y_true = c(1,1,1,0,0,1,0,1,1,0)
@@ -116,7 +120,7 @@ specificity = function(y_pred, y_true){
 #' 
 accuracy = function(y_pred, y_true){
   
-  cmatrix = classificationMetricsTools::confusion_matrix_func(y_pred, y_true)
+  cmatrix = confusionMatrix(y_pred, y_true)
   accu_rate = (cmatrix[2,2] + cmatrix[1,1])/((cmatrix[2,1]+cmatrix[2,2]) + (cmatrix[1,1]+ cmatrix[1,2]))
   return(accu_rate)
 }
@@ -135,15 +139,16 @@ accuracy = function(y_pred, y_true){
 #' @return 
 #' Outputs the precision
 #' 
+#' @export
 #' @examples 
 #' Simulated y_true and y_predicted values
 #' y_true = c(1,1,1,0,0,1,0,1,1,0)
 #' y_pred = c(1,1,1,1,0,0,1,0,1,1)
-#' PPV(y_pred, y_true)
+#' ppv(y_pred, y_true)
 #' 
-PPV = function(y_pred, y_true){
+ppv = function(y_pred, y_true){
   
-  cmatrix = classificationMetricsTools::confusion_matrix_func(y_pred, y_true)
+  cmatrix = confusionMatrix(y_pred, y_true)
   ppv_rate = cmatrix[2,2] / (cmatrix[2,2] + cmatrix[1,2])
   return(ppv_rate)
 }
@@ -161,16 +166,17 @@ PPV = function(y_pred, y_true){
 #' @return 
 #' Outputs the F1-score
 #' 
+#' @export
 #' @examples 
 #' Simulated y_true and y_predicted values
 #' y_true = c(1,1,1,0,0,1,0,1,1,0)
 #' y_pred = c(1,1,1,1,0,0,1,0,1,1)
-#' F1(y_pred, y_true)
+#' f1(y_pred, y_true)
 #' 
-F1 = function(y_pred, y_true){
+f1 = function(y_pred, y_true){
   
-  precision = classificationMetricsTools::PPV(y_pred, y_true)
-  recall = classificationMetricsTools::sensitivity(y_pred,y_true)
+  precision = ppv(y_pred, y_true)
+  recall = sensitivity(y_pred,y_true)
   f1_score = 2 * ((precision * recall) / (precision + recall))
   return(f1_score)
 }
