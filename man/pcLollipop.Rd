@@ -16,6 +16,9 @@ A lollipop plot of the principal component loadings
 This function creates a lollipop plot of the principal
 component loadings of the (potentially unscaled/uncentered) data x
 }
+\details{
+The function scales the data before performing the principal component analysis.
+}
 \examples{
 pcLollipop(mtcars[,1:6])
 

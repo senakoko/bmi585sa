@@ -1,6 +1,5 @@
 #' BoxMuller Function
 #'
-#' A more modern transformation is the Box-Muller transformation. 
 #' The Box-Muller transformation takes two samples from the uniform distribution 
 #' on the interval [0, 1] and maps them to two standard, normally distributed samples:
 #' 𝑋1=−2log(𝑈1)‾‾‾‾‾‾‾‾‾‾√cos(2𝜋𝑈2)
@@ -8,7 +7,8 @@
 #' 
 #' @param n the number of samples to create normal distribution
 #' 
-#' @return a normal distribution
+#' @return 
+#' a normal distribution
 #' 
 #' @export
 #' @examples 
@@ -39,6 +39,8 @@ boxMuller = function(n=500){
 #' Two Sided T function
 #'
 #' This function converts a test statistic x into the area under the t-density for values >|x|
+#' 
+#' @details 
 #' Refer to the `pt` function for more details 
 #' 
 #' @param t  vector of quantiles.
@@ -51,12 +53,15 @@ boxMuller = function(n=500){
 #' 
 twoSidedT = function(t,df){
   two_value = 2 * pt(q = t, df, lower.tail = FALSE)
+  two_value = round(two_value*100,2)
   return(two_value)
 }
 
 #' Two Sided Z function
 #'
 #' This function converts a test statistic x into the area under the z-density for values >|x|
+#' 
+#' @details 
 #' Refer to the `pnorm` function for more details 
 #' 
 #' @param z  vector of quantiles.
@@ -66,13 +71,14 @@ twoSidedT = function(t,df){
 #' twoSidedZ(2)
 #' 
 twoSidedZ = function(z){
-  two_vale = 2 * pnorm(q = z, lower.tail=FALSE)
+  two_value = 2 * pnorm(q = z, lower.tail=FALSE)
+  two_value = round(two_value*100,2)
   return(two_value)
 }
 
 #' Simulate data 
 #' 
-#' This function is used to data for the effect size function. 
+#' This function is used to generate data for the effect size function. 
 #' It creates a simulated data with treatment and control groups
 #' 
 #' @param N  the number of samples 
@@ -91,20 +97,24 @@ simulateTrial = function(N=50){
   control = rep(0,N)
   treat_cont = c(treat,control)
   epi = rnorm(length(treat_cont),0,1)
-  tumor = b_not + b_treat*treat_cont + epi
-  result = tibble(treat_grp = treat_cont, tumor_size = tumor)
+  tm = b_not + b_treat*treat_cont + epi
+  result = tibble(treat_grp = treat_cont, tm_size = tm)
   return(result)
 }
 #' Effect Size Function
 #' 
-#' A function to calculate effect size.
+#' A function to calculate Cohen’s d effect size.
+#' 
+#' @details 
+#' This is the difference in means between two groups 
+#' divided by some measure of the standard deviation.
 #' 
 #' @param t - vector of data points
 #' 
 #' @param g - groups for which each value in parameter t belongs
 #' 
 #' @return 
-#' produces the effect size
+#' outputs the Cohen’s d effect size
 #' 
 #' @export
 #' @examples 
@@ -113,19 +123,19 @@ simulateTrial = function(N=50){
 #' 
 effectSize = function(t,g){
   g_v = unique(g)
-  tumor_mean = rep(NA,dim(g_v)[1])
-  tumor_sd = rep(NA,dim(g_v)[1])
-  tumor_n = rep(NA,dim(g_v)[1])
+  tm_mean = rep(NA,dim(g_v)[1])
+  tm_sd = rep(NA,dim(g_v)[1])
+  tm_n = rep(NA,dim(g_v)[1])
   for (i in 1:dim(g_v)[1]) {
     g_value = g_v[[i,1]]
-    tumor_size = t$tumor_size[t$treat_grp == g_value]
-    tumor_mean[i] = mean(tumor_size, na.rm=T)
-    tumor_sd[i] = sd(tumor_size, na.rm = T)
-    tumor_n[i] = length(tumor_size)
+    tm_size = t$tm_size[t$treat_grp == g_value]
+    tm_mean[i] = mean(tm_size, na.rm=T)
+    tm_sd[i] = sd(tm_size, na.rm = T)
+    tm_n[i] = length(tm_size)
   }
-  tumor_diff = abs(diff(tumor_mean))
-  sd_pooled = sqrt(((tumor_n[1]-1)*tumor_sd[1]**2)+ ((tumor_n[2]-1)*tumor_sd[2]**2))
-  cohen_d = tumor_diff / sd_pooled
+  tm_diff = abs(diff(tm_mean))
+  sd_pooled = sqrt(((tm_n[1]-1)*tm_sd[1]**2)+ ((tm_n[2]-1)*tm_sd[2]**2))
+  cohen_d = tm_diff / sd_pooled
   return(cohen_d)
 }
 
@@ -133,6 +143,9 @@ effectSize = function(t,g){
 #' Welch T-test function
 #' 
 #' Perform a welch t-test
+#' 
+#' @details 
+#' The output from this function should be closer to the value of the t.test function in R.
 #' 
 #' @param x  vector of values
 #' 
@@ -162,7 +175,7 @@ welchT = function(x,y){
   deg_d = sd_x^4/(length(x)^2*length(x)-1) + sd_y^4/(length(y)^2*length(y)-1)
   deg = deg_n/deg_d
   
-  p_value = 2 * pt(t_value,df=deg, lower.tail = FALSE)
+  p_value = 2*pt(t_value,df=deg, lower.tail = FALSE)
   
   result = data.frame(t_value = t_value,p_value=p_value, df = deg)
   return(result)
@@ -183,7 +196,7 @@ welchT = function(x,y){
 #' 
 minimumN = function(d=0.8){
   result = power.t.test(power = 0.8, delta = d)
-  return(result$n)
+  return(ceiling(result$n))
 }
 
 
@@ -195,9 +208,9 @@ minimumN = function(d=0.8){
 #' 
 #' @export
 #' @return 
-#' outputs the chi square value
+#' It returns the test statistics, the p-value and the degree of freedom
 #' 
-chiSquareCounts = function(tib){
+chiSquareCont = function(tib){
   dim_d = dim(a)
   expected = matrix(nrow = dim_d[1], ncol = dim_d[2])
   for (r in 1:dim_d[1]) {
@@ -217,6 +230,32 @@ chiSquareCounts = function(tib){
   return(c(t_stats,df,p_value))
 }
 
+#' Chi Square Test
+#'
+#' Calculates a chi-square test for count data supplied as a tibble
+#' 
+#' @param tib data supplied as a tibble
+#' 
+#' @param x,y variable as arguments
+#' 
+#' @details 
+#' You may supply variable names as strings, 
+#' or with syntax similar to janitor::tabyl using the curly-curly operator in R ({{}}).
+#' 
+#' @export
+#' @return 
+#' It returns the test statistics, the p-value and the degree of freedom
+#' 
+chiSquareCounts = function(data, var1, var2){
+a = janitor::tabyl(data, {{var1}}, {{var2}})
+dim_d = dim(a)
+r_n = dim_d[1]
+c_n = dim_d[2] 
+b = a[1:r_n,2:c_n]
+results = chiSquareCont(b)
+return(results)
+}
+
 #' Post Hoc Power Analysis
 #'
 #' This function simulates post-hoc power
@@ -228,6 +267,15 @@ chiSquareCounts = function(tib){
 #' @export
 #' @return 
 #' outputs the post hoc power
+#' 
+#' @examples 
+#' N = 1000
+#' data_power = rep(NA,N)
+#' for (i in 1:N) {data_power[i] = postHocPower(i)}
+#' 
+#' or
+#' res = replicate(100,postHocPower(effect_size=1, n1=30, n2=30))
+#' mean(res)
 #' 
 postHocPower <- function(effect_size=1, n1=30, n2=30) {
   x1 <- rnorm(n1, 0, 1)
@@ -253,6 +301,10 @@ postHocPower <- function(effect_size=1, n1=30, n2=30) {
 #' @param method method for adjustment. Default is holm
 #' 
 #' @export
+#' 
+#' @return 
+#' a logical vector indicating which p-values are statistically significant.
+#' 
 #' @examples 
 #' Lets say we have performed a series of statistical tests 
 #' and obtained the following p-values:
@@ -279,6 +331,9 @@ bhAdjust = function(p_values, alpha=0.5, method= "holm"){
 #' @param alpha alpha value to use for adjustment
 #' 
 #' @param method method for adjustment. Default is FDR
+#' 
+#' @return 
+#' a logical vector indicating which p-values are statistically significant.
 #' 
 #' @export
 #' @examples 
@@ -310,6 +365,7 @@ fdrAdjust = function(p_values, alpha=0.5, method= "fdr"){
 #' @return 
 #' outputs the r-square value
 #' 
+#' 
 #' @export
 #' @examples 
 #' y_true = c(4, -1.5, 5, 9)
@@ -333,6 +389,7 @@ r2 = function(y_pred, y_true){
 #' 
 #' @return 
 #' outputs the r-square value
+#' 
 #' 
 #' @export
 #' @examples 

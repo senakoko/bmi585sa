@@ -13,6 +13,8 @@ twoSidedT(t, df)
 }
 \description{
 This function converts a test statistic x into the area under the t-density for values >|x|
+}
+\details{
 Refer to the \code{pt} function for more details
 }
 \examples{

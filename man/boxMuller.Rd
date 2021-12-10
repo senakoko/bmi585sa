@@ -13,7 +13,6 @@ boxMuller(n = 500)
 a normal distribution
 }
 \description{
-A more modern transformation is the Box-Muller transformation.
 The Box-Muller transformation takes two samples from the uniform distribution
 on the interval \link{0, 1} and maps them to two standard, normally distributed samples:
 𝑋1=−2log(𝑈1)‾‾‾‾‾‾‾‾‾‾√cos(2𝜋𝑈2)

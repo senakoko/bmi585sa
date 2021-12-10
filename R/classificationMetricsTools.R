@@ -46,6 +46,7 @@ confusionMatrix = function(y_pred, y_true){
 #' 
 #' Compute the sensitivity given the true and predicted values
 #' 
+#' @details 
 #' Sensitivity is defined as 
 #' True Positives / All Positives = True Positives / ( True Positives + False Negatives). 
 #' Sensitivity is also referred to as recall.
@@ -75,6 +76,7 @@ sensitivity = function(y_pred,y_true){
 #' 
 #' Calculates the specificity  given the true and predicted values
 #' 
+#' @details
 #' Specificity is defined as True Negatives / All Negatives
 #' 
 #' @param y_true array-like of shape (n_samples,) Ground truth (correct) target values.
@@ -102,6 +104,7 @@ specificity = function(y_pred, y_true){
 #' 
 #' Calculates the accuracy  given the true and predicted values
 #' 
+#' @details 
 #' Accuracy is defined as (TP +  TN) / (All Positives + All Negatives).
 #' 
 #' @param y_true array-like of shape (n_samples,) Ground truth (correct) target values.
@@ -129,6 +132,7 @@ accuracy = function(y_pred, y_true){
 #' 
 #' Calculates the Positive Predictive Value or precision given the true and predicted values
 #' 
+#' @details 
 #' Positive Predictive Value, or PPV, is defined as True Positives / ( True Positives + False Positives). 
 #' PPV is also referred to as precision.
 #' 
@@ -157,6 +161,7 @@ ppv = function(y_pred, y_true){
 #' 
 #' Calculates the F1-Score given the true and predicted values
 #' 
+#' @details 
 #' F1 score is defined as 2 x (precision x recall) / (precision + recall)
 #' 
 #' @param y_true array-like of shape (n_samples,) Ground truth (correct) target values.

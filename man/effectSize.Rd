@@ -16,10 +16,14 @@ effectSize(t, g)
 }}
 }
 \value{
-produces the effect size
+outputs the Cohen’s d effect size
 }
 \description{
-A function to calculate effect size.
+A function to calculate Cohen’s d effect size.
+}
+\details{
+This is the difference in means between two groups
+divided by some measure of the standard deviation.
 }
 \examples{
 simulated_cancer = simulateTrial(50)

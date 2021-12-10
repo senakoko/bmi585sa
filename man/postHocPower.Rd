@@ -17,3 +17,13 @@ outputs the post hoc power
 \description{
 This function simulates post-hoc power
 }
+\examples{
+N = 1000
+data_power = rep(NA,N)
+for (i in 1:N) {data_power[i] = postHocPower(i)}
+
+or
+res = replicate(100,postHocPower(effect_size=1, n1=30, n2=30))
+mean(res)
+
+}

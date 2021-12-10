@@ -11,6 +11,8 @@ twoSidedZ(z)
 }
 \description{
 This function converts a test statistic x into the area under the z-density for values >|x|
+}
+\details{
 Refer to the \code{pnorm} function for more details
 }
 \examples{

@@ -13,7 +13,7 @@ simulateTrial(N = 50)
 a simulated with treatment and control groups
 }
 \description{
-This function is used to data for the effect size function.
+This function is used to generate data for the effect size function.
 It creates a simulated data with treatment and control groups
 }
 \examples{

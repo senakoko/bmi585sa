@@ -13,6 +13,9 @@ fdrAdjust(p_values, alpha = 0.5, method = "fdr")
 
 \item{method}{method for adjustment. Default is FDR}
 }
+\value{
+a logical vector indicating which p-values are statistically significant.
+}
 \description{
 Performs an adjusted FDR correction
 }

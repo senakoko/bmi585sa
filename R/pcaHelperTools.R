@@ -1,12 +1,15 @@
 #' Unscale Matrix-like Objects
 #' 
 #' This function takes a numerical object from scale and reverses the centering/scaling. 
-#' It assumes the input is the output of the scale function in R
+#' It assumes the input is the output of the scale function in R.
 #' 
 #' @param X  vector or matrix
 #' 
 #' @return 
 #' An unscaled vector or matrix
+#' 
+#' @details 
+#' Refer to the scale function in R for more details about it. 
 #' 
 #' @export
 #' @examples  
@@ -26,10 +29,15 @@ unscale = function(X){
 
 #' Principal Component Approximation
 #' 
-#' This function returns an approximation to the data x based on npc PCs.
+#' This function returns an approximation to the data x based on the number of Principal 
+#' Components (PCs). 
 #' 
 #' @param X    tibble or matrix
 #' @param npc  the number of pca components
+#' 
+#' @details 
+#' The closer the number of principal components to the number of features in the original data, 
+#' the better approximated the input value.
 #' 
 #' @return 
 #' An approximated tibble of the original data
@@ -59,6 +67,9 @@ pcApprox = function(X, npc){
 #' 
 #' @param X   tibble or matrix
 #' 
+#' @details 
+#' The function scales the data before performing the principal component analysis.
+#' 
 #' @export
 #' @returns 
 #' A lollipop plot of the principal component loadings
@@ -76,11 +87,10 @@ pcLollipop = function(X){
   loading_new = as_tibble(cbind(feat_names, round(loading,1)))
   loading_long = loading_new |> pivot_longer(-feat_names, names_to = "features", 
                                              values_to = "comp_values")
-  loading_long$comp_values = as.numeric(ld$comp_values)
+  loading_long$comp_values = as.numeric(loading_long$comp_values)
   ll_plot = loading_long |> ggplot(aes(x=feat_names, y=comp_values)) +
     geom_point() + geom_segment(aes(x=feat_names, xend=feat_names, 
                                     yend=comp_values,y=0, color=features)) +
     facet_wrap(~features, scales = "fixed", as.table = FALSE)
-  print(ll_plot);
-  return(loading_long)
+  print(ll_plot)
 }

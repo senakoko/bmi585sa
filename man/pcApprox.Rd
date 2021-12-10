@@ -15,7 +15,12 @@ pcApprox(X, npc)
 An approximated tibble of the original data
 }
 \description{
-This function returns an approximation to the data x based on npc PCs.
+This function returns an approximation to the data x based on the number of Principal
+Components (PCs).
+}
+\details{
+The closer the number of principal components to the number of features in the original data,
+the better approximated the input value.
 }
 \examples{
 npc = 6

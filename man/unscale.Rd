@@ -14,7 +14,10 @@ An unscaled vector or matrix
 }
 \description{
 This function takes a numerical object from scale and reverses the centering/scaling.
-It assumes the input is the output of the scale function in R
+It assumes the input is the output of the scale function in R.
+}
+\details{
+Refer to the scale function in R for more details about it.
 }
 \examples{
  

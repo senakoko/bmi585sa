@@ -13,6 +13,9 @@ bhAdjust(p_values, alpha = 0.5, method = "holm")
 
 \item{method}{method for adjustment. Default is holm}
 }
+\value{
+a logical vector indicating which p-values are statistically significant.
+}
 \description{
 Performs an adjusted bonferroni correction
 }

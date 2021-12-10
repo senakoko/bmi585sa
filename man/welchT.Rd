@@ -17,6 +17,9 @@ It returns the test statistics, the p-value and the degree of freedom
 \description{
 Perform a welch t-test
 }
+\details{
+The output from this function should be closer to the value of the t.test function in R.
+}
 \examples{
 x = rnorm(10,0,1)
 y = rnorm(10,1,1)
